@@ -2,13 +2,13 @@ var userHelper = require('../helpers/userHelper')
 
 
 module.exports= {
-    gertHome : (req,res) =>{
+    getHome : (req,res) =>{
         try {
             
             console.log("welcome home");
             res.status(200).json({message:"success"})
         } catch (error) {
-            
+            console.log();
         }
         
     },
@@ -206,6 +206,14 @@ module.exports= {
             console.log(req.body,">>>>>>>>>>>>>");
             
         } catch (error) {
+            res.status(500).json({message:"internal error occured!!"})
+        }
+    },
+    workShop:async(req,res)=>{
+        try {
+            console.log(req.body,"interested!!");
+        } catch (error) {
+            console.log(error);
             res.status(500).json({message:"internal error occured!!"})
         }
     }

@@ -4,7 +4,7 @@ var userController = require('../controllers/userController')
 const authentication = require('../middlewares/jwtAuth')
 //signup 
 
-// router.get('/',userController.getHome)
+router.get('/',userController.getHome)
 router.post('/signup',userController.signup)
 router.post('/login',userController.userLogin)
 router.get('/products',userController.getProduct)
@@ -16,4 +16,6 @@ router.post('/removeCartItem',authentication.authenticateToken,userController.Re
 router.get('/getCart/:userId',authentication.authenticateToken,userController.getCart)
 router.post('/writeUs',userController.writeUs)
 router.post('/hireme',authentication.authenticateToken,userController.hireMe)
+router.post('/workshopForm',userController.workShop)
+
 module.exports = router;
