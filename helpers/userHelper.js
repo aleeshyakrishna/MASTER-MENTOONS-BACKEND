@@ -301,22 +301,22 @@ module.exports = {
       return ({error:true})
     }
   },
-  findUser :(mobile) =>{
-    try {
+  // findUser :(mobile) =>{
+  //   try {
       
-      return new Promise((resolve, reject) =>{
-          User.findOne({phoneNumber : mobile}).then((user) =>{
-              if(user){
-                  resolve(user)
-              }else{
-                  resolve(null);
-              }
-          })
-      })
-    } catch (error) {
-      console.log(error);
-      reject(error)
-    }
-  },
+  //     return new Promise((resolve, reject) =>{
+  //         User.findOne({phoneNumber : mobile}).then((user) =>{
+  //             if(user){
+  //                 resolve(user)
+  //             }else{
+  //                 resolve(null);
+  //             }
+  //         })
+  //     })
+  //   } catch (error) {
+  //     console.log(error);
+  //     reject(error)
+  //   }
+  // },
 
 };

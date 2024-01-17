@@ -1,5 +1,5 @@
 var userHelper = require('../helpers/userHelper')
-const twilioApi = require("../api/twilioApi");
+// const twilioApi = require("../api/twilioApi");
 
 
 module.exports= {
@@ -258,25 +258,25 @@ module.exports= {
             res.status(500).json({message:"internal error occured!!"})
         }
     },
-    sendOtp: (req, res) => {
-        try {
+    // sendOtp: (req, res) => {
+    //     try {
             
-            console.log(req.body,"phone numberrrrrrrrrrr");
-            userHelper.findUser(req.body.phoneNumber).then((user) => {
-              if (user) {
+    //         console.log(req.body,"phone numberrrrrrrrrrr");
+    //         userHelper.findUser(req.body.phoneNumber).then((user) => {
+    //           if (user) {
                 
-                twilioApi.sendOtp(req.body.phoneNumber).then((result) => {
-                  res.json({ status: true ,message:"otp send to your number"});
-                });
-              } else {
+    //             twilioApi.sendOtp(req.body.phoneNumber).then((result) => {
+    //               res.json({ status: true ,message:"otp send to your number"});
+    //             });
+    //           } else {
          
-                res.json({ status: false,message:"user not registered" });
-              }
-            });
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({message:"internal error occured!!"})
-        }
-      },
+    //             res.json({ status: false,message:"user not registered" });
+    //           }
+    //         });
+    //     } catch (error) {
+    //         console.log(error);
+    //         res.status(500).json({message:"internal error occured!!"})
+    //     }
+    //   },
 
 }

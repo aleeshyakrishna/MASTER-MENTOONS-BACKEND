@@ -18,6 +18,6 @@ router.get('/getCart/:userId',authentication.authenticateToken,userController.ge
 router.post('/writeUs',userController.writeUs)
 router.post('/hireme',authentication.authenticateToken,userController.hireMe)
 router.post('/workshopForm',userController.workShop)
-router.post('/sendOtp',userController.sendOtp)
+// router.post('/sendOtp',userController.sendOtp)
 
 module.exports = router;
