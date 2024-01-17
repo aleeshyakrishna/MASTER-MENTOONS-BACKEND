@@ -36,8 +36,8 @@ module.exports = {
   postCategory :async(req,res)=>{
     console.log("welcome to add category!!");
     try {
-       
-        adminHelper.addCategory(req.body).then(()=>{
+      const categoryy = req.body
+        adminHelper.addCategory(categoryy).then(()=>{
             res.status(200).json({message:"successfully added"})     
         })
         // if already exist ----------->>

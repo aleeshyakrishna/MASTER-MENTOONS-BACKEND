@@ -9,6 +9,7 @@ router.post('/signup',userController.signup)
 router.post('/login',userController.userLogin)
 router.get('/products',userController.getProduct)
 router.get('/prodView/:id',userController.getOneProd)
+router.get('/getCatProduct/:id',userController.getCatProd)
 router.get('/getCategory',userController.getAllCategory)
 router.get('/getOneCategory/:id',userController.getOneCategory)
 router.post('/addToCart',authentication.authenticateToken,userController.addToCart)
@@ -17,5 +18,6 @@ router.get('/getCart/:userId',authentication.authenticateToken,userController.ge
 router.post('/writeUs',userController.writeUs)
 router.post('/hireme',authentication.authenticateToken,userController.hireMe)
 router.post('/workshopForm',userController.workShop)
+router.post('/sendOtp',userController.sendOtp)
 
 module.exports = router;

@@ -3,6 +3,8 @@ var Product = require("../models/productSchema.js");
 var Category = require("../models/categorySchema.js");
 var Cart = require("../models/cartSchema.js");
 var Messages = require("../models/userMessageSchema")
+var Workshop = require("../models/workshopEnquirySchema.js")
+
 var bcrypt = require("bcrypt");
 var dotenv = require("dotenv");
 dotenv.config();
@@ -90,6 +92,43 @@ module.exports = {
     } catch (error) {
       console.log(error);
       return { error: true };
+    }
+  },
+  getCatProd:async(cateId)=>{
+    try {
+      const catExist = await Category.find({_id:cateId})
+      if(catExist){
+        const datas = await Category.aggregate([
+          {
+            '$match': {
+              '_id': new ObjectId('65a674cde94e91995d2901af')
+            }
+          }, {
+            '$lookup': {
+              'from': 'products', 
+              'localField': 'CategoryName', 
+              'foreignField': 'productCategory', 
+              'as': 'result'
+            }
+          }, {
+            '$unwind': {
+              'path': '$result', 
+              'includeArrayIndex': 'string'
+            }
+          }, {
+            '$project': {
+              '_id': 0, 
+              'CategoryName': 0
+            }
+          }
+        ])
+        console.log(datas,"this is datass...........");
+        return ({success:true,datas})
+      }else{
+        return ({success:false})
+      }
+    } catch (error) {
+      return ({error:true})
     }
   },
   allCategory: async () => {
@@ -232,17 +271,52 @@ module.exports = {
   },
   storeMsg: async (writeUsData) => {
     try {
-        console.log(writeUsData, "this is the form data");
+       
         const saveData = await Messages.create(writeUsData);
-        console.log(saveData, ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
+        if(saveData){
+          return ({success:true,saveData})
+        }else{
+          return ({success:false})
+        }
 
         // If you need to send the saved data back in the response, you can do so
         // res.status(200).json({ success: true, data: saveData });
     } catch (error) {
         console.error(error);
         console.log(error);
+        return ({error:true})
         // res.status(500).json({ success: false, message: "Internal error occurred!!" });
     }
-}
+  },
+  workshopForm:async(formData)=>{
+    try {
+      const result = await Workshop.create(formData)
+      if(result){
+        return ({success:true,result})
+      }else{
+        return ({success:false})
+      }
+    } catch (error) {
+      console.log(error);
+      return ({error:true})
+    }
+  },
+  findUser :(mobile) =>{
+    try {
+      
+      return new Promise((resolve, reject) =>{
+          User.findOne({phoneNumber : mobile}).then((user) =>{
+              if(user){
+                  resolve(user)
+              }else{
+                  resolve(null);
+              }
+          })
+      })
+    } catch (error) {
+      console.log(error);
+      reject(error)
+    }
+  },
 
 };

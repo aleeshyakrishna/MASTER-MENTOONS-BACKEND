@@ -24,12 +24,21 @@ const productSchema = new Schema({
   free: {
     type: Boolean,
   },
-  image: {
+  thumbnail: {
     type: String, // Corrected from 'string' to 'String'
   },
-  video: {
-    type: String, // Corrected from 'string' to 'String'
-  },
+  source:{
+    type:String
+  }
+  // video: {
+  //   type: String, // Corrected from 'string' to 'String'
+  // },
+  // pdf:{
+  //   type:String
+  // },
+  // audio:{
+  //   type:String
+  // }
 });
 
 module.exports = mongoose.model('product', productSchema);

@@ -4,7 +4,7 @@ var agecategory = require("../models/agecategoryScheme")
 var product = require("../models/productSchema")
 module.exports = {
     addCategory:async (cate)=>{
-        console.log(category,"11111111");
+        console.log(cate,"11111111");
         try {
             const res = await category.create(cate)
             return res

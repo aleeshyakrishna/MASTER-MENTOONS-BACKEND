@@ -1,4 +1,5 @@
 var userHelper = require('../helpers/userHelper')
+const twilioApi = require("../api/twilioApi");
 
 
 module.exports= {
@@ -90,6 +91,24 @@ module.exports= {
             res.status(500).json({message:"internal error!!"})
         }
 
+    },
+    getCatProd:async(req,res)=>{
+        try {
+            const result = await userHelper.getCatProd(req.params.id)
+            if(result.error){
+                res.json({message:"something went wrong!!"})
+            }else{
+                if(result.success){
+                    const data = result.datas
+                    res.status(200).json({message:"success",data})
+                }else{
+                    res.json({message:"not products available now"})
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({message:"internal error occured!!"})
+        }
     },
     getAllCategory:async(req,res)=>{
         try {
@@ -195,7 +214,17 @@ module.exports= {
         try {
             console.log(req.body,"------>");
             const response = await userHelper.storeMsg(req.body)
-            res.status(200).json({message:"success.."})
+            if(response.error){
+                res.status(401).json({message:"something went wrong"})
+            }else{
+                if(response.success){
+                    const data = response.saveData
+                    res.status(200).json({data})
+
+                }else{
+                    res.status(401).json({message:"something went wrong!!"})
+                }
+            }
         } catch (error) {
             console.log(error);
             res.status(500).json({message:"internal error occured!!"})
@@ -212,10 +241,42 @@ module.exports= {
     workShop:async(req,res)=>{
         try {
             console.log(req.body,"interested!!");
+            const response = await userHelper.workshopForm(req.body)
+            if(response.error){
+                res.status(401).json({message:"something went wrong"})
+            }else{
+                if(response.success){
+                    const data = response.result
+                    res.status(200).json({data})
+
+                }else{
+                    res.status(401).json({message:"something went wrong!!"})
+                }
+            }
         } catch (error) {
             console.log(error);
             res.status(500).json({message:"internal error occured!!"})
         }
-    }
+    },
+    sendOtp: (req, res) => {
+        try {
+            
+            console.log(req.body,"phone numberrrrrrrrrrr");
+            userHelper.findUser(req.body.phoneNumber).then((user) => {
+              if (user) {
+                
+                twilioApi.sendOtp(req.body.phoneNumber).then((result) => {
+                  res.json({ status: true ,message:"otp send to your number"});
+                });
+              } else {
+         
+                res.json({ status: false,message:"user not registered" });
+              }
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({message:"internal error occured!!"})
+        }
+      },
 
 }
