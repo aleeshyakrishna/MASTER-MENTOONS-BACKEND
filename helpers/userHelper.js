@@ -83,7 +83,11 @@ module.exports = {
   },
   getOneProduct: async (prodId) => {
     try {
+    // var { prodId } = productId;
+    console.log(prodId,"lenthssssssssssss");
       const result = await Product.findOne({ _id: prodId });
+      console.log(result, "result");
+  
       if (result) {
         return { success: true, result };
       } else {

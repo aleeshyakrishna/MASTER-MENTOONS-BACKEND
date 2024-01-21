@@ -2,6 +2,7 @@ var userHelper = require('../helpers/userHelper')
 // const twilioApi = require("../api/twilioApi");
 
 
+
 module.exports= {
     getHome : (req,res) =>{
         try {
@@ -72,16 +73,19 @@ module.exports= {
     },
     getOneProd:async(req,res)=>{
         try {
-            
-            console.log("productId",req.params.id);
-             await userHelper.getOneProduct(req.params.id).then((data)=>{
+           const id = req.params.id;
+            console.log("productId.......",id);
+        
+    
+             await userHelper.getOneProduct(id) // Remove the colon
+            .then((data)=>{
                 if(data.error){
                     res.json({message:"something went wrong!"})
                 }else{
                     if(data.success){
                         res.json({data,message:"success!!"})
                     }else{
-                        res.json({message:"something went wrong!!"})
+                        res.json({message:"product not available"})
                     }
                 }
              })
