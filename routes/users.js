@@ -2,11 +2,15 @@ var express = require('express');
 var router = express.Router();
 var userController = require('../controllers/userController')
 const authentication = require('../middlewares/jwtAuth')
+const { memoryStorage } = require('multer');
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 //signup 
 
 router.get('/',userController.getHome)
-router.post('/signup',userController.signup)
-router.post('/login',userController.userLogin)
+router.post('/signup',upload.none(),userController.signup)
+router.post('/login',upload.none(),userController.userLogin)
 router.get('/products',userController.getProduct)
 router.get('/prodView/:id',userController.getOneProd)
 router.get('/getCatProduct/:id',userController.getCatProd)

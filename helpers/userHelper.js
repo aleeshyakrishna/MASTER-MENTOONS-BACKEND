@@ -38,7 +38,7 @@ module.exports = {
   },
   forlogin: async (userData) => {
     try {
-      console.log(userData, "llll");
+      console.log(userData, "inside helperfunctionnn");
       var userExist = await User.findOne({ email: userData.email });
       if (!userExist) {
         return { login: false };

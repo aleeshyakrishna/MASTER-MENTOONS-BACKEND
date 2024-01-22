@@ -16,7 +16,7 @@ module.exports= {
     },
     signup:async(req,res)=>{
         try {
-            
+            console.log(req.body,"user dataaaa");
             await userHelper.userSignup(req.body).then((data)=>{
                 if (data.Exist) {
                     res.json({message:' already registered!!'});
@@ -37,7 +37,7 @@ module.exports= {
     },
     userLogin:async(req,res)=>{
         try {
-            console.log(req.body,"this is form data..");
+            console.log(req.body,"this is login form data..");
             const response = await userHelper.forlogin(req.body);
             console.log(response,"this is response....");
             if (response.login && response.userExist) {
@@ -49,7 +49,7 @@ module.exports= {
                 console.log(Token);
                 res.json({message:"user successfully logedIn",status:true,userData,Token});
             } else {
-                res.json({status:false})
+                res.json({status:false,message:"user not registered!"})
             }
         } catch (error) {
             console.log(error);
